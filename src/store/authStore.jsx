@@ -9,7 +9,7 @@ const useAuthStore = create(persist((set,get)=>({
   user: null,
   token: null,
 
-
+  
 actionRegister : async(form) => {
   try{
     const res = await apiRegister(form)

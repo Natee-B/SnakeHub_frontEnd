@@ -33,11 +33,25 @@ const AdminSidebar = () => {
           Manage User
         </Link>
 
-        <Link className={classLink} to="/admin/mapcontent">
+        <Link className={classLink} to="/admin/productAdmin">
           <span className="text-xl">
             <MdManageAccounts />
           </span>
-          Map
+          Product
+        </Link>
+
+        <Link className={classLink} to="/admin/categoryAdmin">
+          <span className="text-xl">
+            <MdManageAccounts />
+          </span>
+          Category
+        </Link>
+
+        <Link className={classLink} to="/admin/blogAdmin">
+          <span className="text-xl">
+            <MdManageAccounts />
+          </span>
+          Blog
         </Link>
 
         {/* <Link className={classLink} to="/admin/landmark">

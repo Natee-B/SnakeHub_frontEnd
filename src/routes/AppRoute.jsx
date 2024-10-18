@@ -13,6 +13,12 @@ import Blog from '../pages/Blog'
 import Dashboard from '../pages/admin/Dashboard'
 import AdminLayout from '../layouts/AdminLayout'
 import BlogDetail from '../pages/BlogDetail'
+import CategoryDetail from '../pages/CategoryDetail'
+import AddBlog from '../pages/admin/addBlog'
+import BlogUpdate from '../pages/admin/BlogUpdate'
+import BlogAdmin from '../pages/admin/BlogAdmin'
+import CategoryAdmin from '../pages/admin/CategoryAdmin'
+import ProductAdmin from '../pages/admin/ProductAdmin'
 // import Manage from '../pages/admin/Manage'
 
 
@@ -28,7 +34,8 @@ const router =  createBrowserRouter([
       {path: "about", element: <About /> },
       {path: "blog", element: <Blog />  },
       {path: "blog/:blogId", element: <BlogDetail />  },
-      {path: "category", element: <Category />},
+      {path: "category", element: <Category />}, 
+      {path: "category/snakeDetail/:snakeId", element: <CategoryDetail />}, 
       {path: "contactUs", element: <ContactUs/>},
       {path: "register", element: <Register /> },
       {path: "login", element: <Login /> },
@@ -42,7 +49,12 @@ const router =  createBrowserRouter([
     // element: <ProtectRoute element = {<AdminLayout/>} allow={["ADMIN"]}/>, รอมี ProtectRoute
     element: <AdminLayout/>,
     children: [
-      { index: true, element: <Dashboard /> },
+      {index: true, element: <Dashboard /> },
+      {path: "blogAdmin", element: <BlogAdmin/> }, 
+      {path: "blogAdd", element: <AddBlog/> }, 
+      {path: "blogUpdate", element: <BlogUpdate/> }, 
+      {path: "categoryAdmin", element: <CategoryAdmin/> }, 
+      {path: "productAdmin", element: <ProductAdmin/> }, 
       // { path: "manage", element: <Manage /> },
     ],
   },

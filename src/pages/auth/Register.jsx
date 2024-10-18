@@ -25,7 +25,6 @@ export default function Register() {
   const [formErrors ,setFormErrors] = useState({})
 
   const hdlOnChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setForm({
       ...form,
       [e.target.name]:e.target.value

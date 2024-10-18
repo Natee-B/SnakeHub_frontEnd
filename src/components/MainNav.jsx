@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function MainNav() {
   return (
-    <div className="flex px-8 py-4 w-full  bg-slate-400"> 
+    <div className="flex px-8 py-4 h-12 w-full items-center bg-slate-400"> 
 
       <div className="flex justify-between w-full">
         

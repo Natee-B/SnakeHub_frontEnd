@@ -95,8 +95,8 @@ export default function Home() {
         <div className=" flex-col w-full bg-white gap-10">
           <div className="flex gap-4">
             {cardSpc.map((el, index) => (
-              <div className="relative h-[400px] rounded-xl bg-yellow-500 transition-all duration-500 ease-in-out flex-1 hover:flex-[3] font-bold cursor-pointer pointer overflow-hidden">
-                <CardSpecies key={index} el={el} />
+              <div key={index} className="relative h-[400px] rounded-xl bg-yellow-500 transition-all duration-500 ease-in-out flex-1 hover:flex-[3] font-bold cursor-pointer pointer overflow-hidden">
+                <CardSpecies el={el} />
               </div>
             ))}
           </div>

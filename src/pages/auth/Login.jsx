@@ -33,7 +33,6 @@ export default function Login() {
       return; 
     }
     const result = await actionLogin(form)
-    console.log(result)
     if(result){
       setForm(initialState)
       setFormErrors({})
@@ -42,7 +41,9 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen-[10px] w-screen  text-white bg-[url('https://picsum.photos/2000')] bg-cover bg-center ">
+    <div className="flex h-[calc(100vh-129px)] w-screen  text-white bg-[url('https://picsum.photos/2000')] bg-cover bg-center ">
+
+
       <div className="bg-black bg-opacity-30 h-full w-1/3 min-w-[250px] items-center p-8 flex flex-col justify-between">
         <div className=" text-8xl">Logo</div>
 
