@@ -2,12 +2,28 @@ import React from "react";
 import { create } from "zustand";
 import { ToastContainer, toast } from "react-toastify";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { apiAddSnake, apiDeleteSnake, apiUpdateSnake } from "../api/ApiCategorySnake";
+import { ApiDeleteMember, ApiGetMember, ApiUpdateMember } from "../api/ApiMember";
 
-const useSnakeStore = create(persist((set, get) => ({
-        AddSnake: async (form,token)=>{
+
+
+const useMemberStore = create(
+  persist(
+    (set, get) => ({
+        Member : null ,
+        getMember: async (token)=>{
         try{
-          const res = await apiAddSnake(form,token)
+          const res = await ApiGetMember(token)
+          set({Member: res.data.data})
+        }catch(err){
+          // console.log(err)
+            toast.error(err.response.data.message);
+        }
+      },
+
+      updateMember: async (userId,form,token)=>{
+        // console.log('updateMember', userId,form,token)
+        try{
+          const res = await ApiUpdateMember(userId,form,token)
           toast(res.data.message)
         }catch(err){
           // console.log(err)
@@ -15,20 +31,9 @@ const useSnakeStore = create(persist((set, get) => ({
         }
       },
 
-      UpdateSnake: async (snakeId,form,token)=>{
+      deleteMember: async (userId,token)=>{
         try{
-          console.log('form UpdateSnake Store', snakeId,form,token)
-          const res = await apiUpdateSnake(snakeId,form,token)
-          toast(res.data.message)
-        }catch(err){
-          // console.log(err)
-            toast.error(err.response.data.message);
-        }
-      },
-
-      DeleteSnake: async (snakeId,token)=>{
-        try{
-          const res = await apiDeleteSnake(snakeId,token)
+          const res = await ApiDeleteMember(userId,token)
           toast(res.data.message)
         }catch(err){
           // console.log(err)
@@ -38,10 +43,10 @@ const useSnakeStore = create(persist((set, get) => ({
 
     }),
     {
-      name: "snake-store",
+      name: "Member-store",
       storage: createJSONStorage(() => localStorage),
     }
   )
 );
 
-export default useSnakeStore;
+export default useMemberStore;

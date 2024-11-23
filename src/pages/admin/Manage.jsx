@@ -1,11 +1,11 @@
-// import React from 'react'
-// import TableMember from '../../components/admin/TableMember'
+import React from 'react'
+import TableMember from '../../components/admin/TableMember'
 
-// export default function Manage() {
-//   return (
-//     <div>Manage
-//       <TableMember />
-//     </div>
-//   )
+export default function Manage() {
+  return (
+    <div>Manage
+      <TableMember />
+    </div>
+  )
 
-// }
+}

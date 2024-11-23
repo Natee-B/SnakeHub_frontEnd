@@ -4,11 +4,12 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import useAuthStore from "../../store/authStore";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const QuillEditor = () => {
   const user = useAuthStore(state => state.user);
   const token = useAuthStore(state => state.token);
-
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     title: "",
     content: "",
@@ -53,8 +54,8 @@ const QuillEditor = () => {
       toast("please Enter input")
     }else{
     await getAddBlog(updatedForm,token);
+    navigate("/admin/blogAdmin")
     };
-    // เรียกใช้ getAddBlog ที่นี่
   };
 
   return (

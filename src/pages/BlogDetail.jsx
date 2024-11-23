@@ -6,11 +6,11 @@ export default function BlogDetail() {
   let el = location.state.el;
 
   return (
-    <div>
-        <div>{el.id}</div>
+    <div >
+      <div class="transparent-bg">
       <div dangerouslySetInnerHTML={{ __html: `${el.title}` }} />
       <div dangerouslySetInnerHTML={{ __html: `${el.content}` }} />
-      
+      </div>
     </div>
   )
 }

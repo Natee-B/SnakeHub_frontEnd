@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function MapBlog({ el }) {
-  const maxLength = 300
+  const maxLength = 700
   const truncatedText = el.content.length > maxLength ? el.content.slice(0, maxLength) + '...' : el.content; //กำหนดความยาวตัวอักษรแล้วเติม ... ไว้ข้างหลัง
 
   return (
@@ -16,7 +16,7 @@ export default function MapBlog({ el }) {
           {/* <h1 className="text-8xl">{el.title}</h1> */}
           <div className="text-6xl h-[120px] " dangerouslySetInnerHTML={{ __html: `${el.title}` }} />
           <div dangerouslySetInnerHTML={{ __html: `${truncatedText}` }} />
-          {/* <p></p> */}
+          <p>Created : {new Date(el.createdAt).toLocaleDateString("th-TH")}</p>
         </div>
       </div>
     </Link>

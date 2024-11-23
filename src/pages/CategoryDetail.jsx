@@ -8,20 +8,24 @@ export default function CategoryDetail() {
   const location = useLocation();
   const token = useAuthStore((state) => state.token);
   const { el } = location.state || {};
-  const [modal,setModal] = useState(false)
+
+  console.log('el', el)
 
   if (!el) {
     return <div>Error: No Prop data found!</div>; // ถ้ากดผ่าน API โดยตรง ไม่กดผ่าน Link ทำให้Link ไม่ส่ง Prop el มาให้ใช้  กันไว้เฉยๆ
   }
 
-  const birthdate = el.birthdate ? el.birthdate.split("T")[0] : "-"; //ถ้าไม่ ternary เวลาค่า el.birthdate เป็น null จะทำให้ split เกิด Error
-  const updatedAt = el.updatedAt.split("T")[0];
+  // const birthdate = el.birthdate ? el.birthdate.split("T")[0] : "-"; //ถ้าไม่ ternary เวลาค่า el.birthdate เป็น null จะทำให้ split เกิด Error
+  // const updatedAt = el.updatedAt.split("T")[0];
+  const birthdate = el.birthdate? new Date(el.birthdate).toLocaleDateString("th-TH"): "-";
+  const updatedAt = new Date(el.updatedAt).toLocaleDateString("th-TH")
 
-  const hdlBuyClick = () => {
+
+  const hdlClick = () => {
     if (!token) {
       navigate("/login"); // ถ้าไม่มี token จะไปที่หน้า login
     } else {
-      setModal(!modal)
+      navigate("/payment",{ state: { el,token } })
     }
   };
 
@@ -35,7 +39,7 @@ export default function CategoryDetail() {
         <div className="border flex  justify-end h-min">
           <img
             className="rounded-3xl h-[570px]"
-            src="https://www.picsum.photos/700"
+            src={el.img}
             alt="Snake Main"
           />
         </div>
@@ -75,13 +79,11 @@ export default function CategoryDetail() {
           </div>
           <button
             className="border p-2 rounded-xl bg-blue-100 hover:bg-blue-200"
-            onClick={hdlBuyClick}
+            onClick={hdlClick}
           >
             buy
           </button> 
-          {modal && (
-            <AddOrder/>
-          )}
+
         </div>
       </div>
     </div>

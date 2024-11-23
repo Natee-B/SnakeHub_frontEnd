@@ -30,7 +30,20 @@ actionLogin : async(form) =>{
     toast.error(err.response.data.message)
     return false
   }
+},
+
+logout : async() =>{
+  try{
+    set({ user: null,
+      token: null  })
+      toast.success("LogOut")
+    return true
+  }catch(err){
+    toast.error(err.response.data.message)
+  }
 }
+
+
 }),{
   name:'auth-store',
   storage: createJSONStorage(()=> localStorage)

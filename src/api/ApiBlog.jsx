@@ -11,3 +11,16 @@ export const apiAddBlog = (form, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+
+export const apiUpdateBlog= (blogId,form, token) =>
+  axios.patch(`http://localhost:8444/api/blog/updateBlog/${blogId}`, form, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+export const apiDeleteBlog = (blogId,token) =>
+  axios.delete(`http://localhost:8444/api/blog/deleteBlog/${blogId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

@@ -1,22 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuthStore from "../../store/authStore";
 import validate from "../../utils/validator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
   identify: "",
   password: "",
 };
+
+
+
 export default function Login() {
+  const user = useAuthStore((state)=>state.user)
   const actionLogin = useAuthStore((state) => state.actionLogin);
-  
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     identify: "",
     password: "",
   });
-  console.log(form)
-
   const [formErrors, setFormErrors] = useState({});
+
+  useEffect(() => {
+    if (user) {
+      navigate("/"); // เปลี่ยนหน้าไปที่หน้าอื่นถ้าผู้ใช้ล็อกอินอยู่
+    }
+  }, [user, navigate]);
+
 
   const hdlOnChange = (e) => {
     setForm({
@@ -32,13 +41,16 @@ export default function Login() {
       setFormErrors(errors); 
       return; 
     }
+
     const result = await actionLogin(form)
+    
     if(result){
-      setForm(initialState)
+      setForm(initialState) //ใช้ {} ได้ไหม
       setFormErrors({})
     }
-
+      navigate("/")
   };
+
 
   return (
     <div className="flex h-[calc(100vh-129px)] w-screen  text-white bg-[url('https://picsum.photos/2000')] bg-cover bg-center ">

@@ -8,12 +8,18 @@ export default function Blog() {
  
 const blog = useBlogStore((state)=>state.blog)
 const getBlog = useBlogStore((state)=>state.getBlog)
-// console.log("BLOG -->",blog)
+
+console.log("BLOG -->",blog)
 useEffect(
   ()=>{
     getBlog()
   },[getBlog]
 )
+
+if (!blog) {
+  return <p>Loading...</p>; // ตอนแรกมัน Error เหมือนโหลดไม่ทัน งมเป็น ชม. เหมือนตอนลบแคช แล้วไม่มีข้อมูล ต้องเฟชให้ได้ก่อน1ครั้งมั้ง ถึงจะไม่error
+}
+
 // console.log(getBlog())
   return (
     <div className='flex flex-col gap-20 items-center'>

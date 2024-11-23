@@ -19,12 +19,15 @@ import BlogUpdate from '../pages/admin/BlogUpdate'
 import BlogAdmin from '../pages/admin/BlogAdmin'
 import CategoryAdmin from '../pages/admin/CategoryAdmin'
 import ProductAdmin from '../pages/admin/ProductAdmin'
-// import Manage from '../pages/admin/Manage'
+import OrderAdmin from '../pages/admin/OrderAdmin'
+import Manage from '../pages/admin/Manage'
+import Payment from '../pages/Payment'
+import UserLayout from '../layouts/UserLayout'
+import OrderUser from '../pages/user/OrderUser'
+import ManageUser from '../pages/user/ManageUser'
+import useAuthStore from '../store/authStore'
 
-
-
-
-const router =  createBrowserRouter([
+const guestRouter =  createBrowserRouter([
 
   {
     path: "/",
@@ -39,6 +42,29 @@ const router =  createBrowserRouter([
       {path: "contactUs", element: <ContactUs/>},
       {path: "register", element: <Register /> },
       {path: "login", element: <Login /> },
+      {path: "payment", element: <Payment/> },
+      {path: "unauthorized", element: <Unauthorized/> },
+      {path: "*", element: <PageNotFound/> },
+    ],
+  },
+])
+
+const adminRouter =  createBrowserRouter([
+
+  {
+    path: "/",
+    element: <Layout/>,
+    children: [
+      {index: true, element: <Home/> },
+      {path: "about", element: <About /> },
+      {path: "blog", element: <Blog />  },
+      {path: "blog/:blogId", element: <BlogDetail />  },
+      {path: "category", element: <Category />}, 
+      {path: "category/snakeDetail/:snakeId", element: <CategoryDetail />}, 
+      {path: "contactUs", element: <ContactUs/>},
+      {path: "register", element: <Register /> },
+      {path: "login", element: <Login /> },
+      {path: "payment", element: <Payment/> },
       {path: "unauthorized", element: <Unauthorized/> },
       {path: "*", element: <PageNotFound/> },
     ],
@@ -55,14 +81,62 @@ const router =  createBrowserRouter([
       {path: "blogUpdate", element: <BlogUpdate/> }, 
       {path: "categoryAdmin", element: <CategoryAdmin/> }, 
       {path: "productAdmin", element: <ProductAdmin/> }, 
-      // { path: "manage", element: <Manage /> },
+      {path: "orderAdmin", element: <OrderAdmin/> }, 
+      {path: "manage", element: <Manage /> },
+      {path: "*", element: <PageNotFound/> }
+    ],
+  },
+
+  {
+    path: "/user",
+    // element: <ProtectRoute element = {<AdminLayout/>} allow={["ADMIN"]}/>, รอมี ProtectRoute
+    element: <UserLayout />,
+    children: [
+      {index: true, element: <ManageUser /> },
+      {path: "orderUser", element: <OrderUser/>},
+      {path: "*", element: <PageNotFound/> } 
+    ],
+  },
+])
+
+const userRouter =  createBrowserRouter([
+
+  {
+    path: "/",
+    element: <Layout/>,
+    children: [
+      {index: true, element: <Home/> },
+      {path: "about", element: <About /> },
+      {path: "blog", element: <Blog />  },
+      {path: "blog/:blogId", element: <BlogDetail />  },
+      {path: "category", element: <Category />}, 
+      {path: "category/snakeDetail/:snakeId", element: <CategoryDetail />}, 
+      {path: "contactUs", element: <ContactUs/>},
+      {path: "register", element: <Register /> },
+      {path: "login", element: <Login /> },
+      {path: "payment", element: <Payment/> },
+      {path: "unauthorized", element: <Unauthorized/> },
+      {path: "*", element: <PageNotFound/> },
+    ],
+  },
+
+  {
+    path: "/user",
+    // element: <ProtectRoute element = {<AdminLayout/>} allow={["ADMIN"]}/>, รอมี ProtectRoute
+    element: <UserLayout />,
+    children: [
+      {index: true, element: <ManageUser /> },
+      {path: "orderUser", element: <OrderUser/>},
+      {path: "*", element: <PageNotFound/> } 
     ],
   },
 
 ])
 
-
 export default function AppRoute() {
+  const user = useAuthStore((state)=>state.user)
+  const router = user?user.role === "ADMIN"?adminRouter:userRouter:guestRouter
+  
   return (
     <div>
          <RouterProvider router={router} />

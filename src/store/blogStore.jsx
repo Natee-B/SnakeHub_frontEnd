@@ -2,7 +2,7 @@ import React from "react";
 import { create } from "zustand";
 import { ToastContainer, toast } from "react-toastify";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { apiAddBlog, apiBlog, apiBlogDetail } from "../api/ApiBlog";
+import { apiAddBlog, apiBlog, apiBlogDetail, apiDeleteBlog, apiUpdateBlog } from "../api/ApiBlog";
 
 const useBlogStore = create(
   persist(
@@ -14,7 +14,6 @@ const useBlogStore = create(
         try {
           const res = await apiBlog();
           set({ blog: res.data })
-          console.log("getBlog for blogStore.jsx",res.data)
         } catch (err) {
           toast.error(err.response.data.message);
         }
@@ -32,6 +31,26 @@ const useBlogStore = create(
       getAddBlog: async (form,token) => {
         try {
           const res = await apiAddBlog(form,token);
+          toast(res.data.message)
+        } catch (err) {
+          toast.error(err.response.data.message);
+        }
+      },
+
+      updateBlog: async (blogId,form,token) => {
+        try {
+          console.log('blogId Store', blogId)
+          const res = await apiUpdateBlog(blogId,form,token);
+          toast(res.data.message)
+        } catch (err) {
+          toast.error(err.response.data.message);
+        }
+      },
+
+      deleteBlog: async (blogId,token) => {
+        try {
+          console.log('blogId Store', blogId,token)
+          const res = await apiDeleteBlog(blogId,token);
           toast(res.data.message)
         } catch (err) {
           toast.error(err.response.data.message);

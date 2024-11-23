@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAuthStore from "../../store/authStore";
 import { toast } from "react-toastify";
 import validate from "../../utils/validator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
   username: "",
@@ -14,6 +14,7 @@ const initialState = {
 export default function Register() {
   const name = useAuthStore((state) => state.name);
   const actionRegister = useAuthStore((state) => state.actionRegister);
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     username: "",
@@ -43,6 +44,7 @@ export default function Register() {
     actionRegister(form)
     setForm(initialState)
     setFormErrors({})
+    navigate("/login")
   };
 
 
